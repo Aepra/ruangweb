@@ -218,7 +218,7 @@ export default async function WebsiteDetail({ params }: PageProps) {
                     </ul>
                     
                     {/* Role Admin Khusus */}
-                    {pkgGenericData.contohAdmin && (
+                    {"contohAdmin" in pkgGenericData && pkgGenericData.contohAdmin && (
                       <div className="mt-4 bg-[#0B0F19] rounded-xl p-4 border border-white/5">
                         <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3">Contoh Pembagian Peran</p>
                         <div className="space-y-3">
