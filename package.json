@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:pages": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "eslint"
   },
@@ -18,7 +19,7 @@
     "framer-motion": "^13.1.1",
     "jose": "^6.2.10",
     "lucide-react": "^1.35.0",
-    "next": "16.3.3",
+    "next": "^15.5.2",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -30,7 +31,7 @@
     "@types/react-dom": "^19",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
-    "eslint-config-next": "16.3.3",
+    "eslint-config-next": "^15.5.2",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
     "typescript": "^5"
