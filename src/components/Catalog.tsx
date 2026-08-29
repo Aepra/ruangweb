@@ -59,7 +59,8 @@ export default function Catalog() {
               <motion.div 
                 key={service.id} 
                 variants={item}
-                className="group relative bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-3xl p-8 hover:border-slate-700/80 transition-all duration-500 flex flex-col h-full overflow-hidden hover:shadow-[0_0_40px_rgba(0,0,0,0.3)] hover:-translate-y-2"
+                whileTap={{ scale: 0.96 }}
+                className="group relative bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-3xl p-8 hover:border-slate-700/80 active:border-slate-600 transition-all duration-500 flex flex-col h-full overflow-hidden hover:shadow-[0_0_40px_rgba(0,0,0,0.3)] hover:-translate-y-2 active:shadow-none"
               >
                 {/* Hover gradient background & glow */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
@@ -69,9 +70,14 @@ export default function Catalog() {
                   {Icon && <Icon size={28} />}
                 </div>
                 
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors line-clamp-2 relative z-10">
-                  {service.title}
-                </h3>
+                <Link 
+                  href={service.slug === 'acara-undangan' ? '/undangan-digital' : `/layanan/${service.slug}`}
+                  className="relative z-10 block w-fit"
+                >
+                  <h3 className="text-xl font-bold text-white mb-3 hover:text-blue-400 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors line-clamp-2">
+                    {service.title}
+                  </h3>
+                </Link>
                 
                 <p className="text-slate-400 mb-8 leading-relaxed text-sm line-clamp-3 relative z-10">
                   {service.description}

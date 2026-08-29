@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Eye, Sparkles, Heart, ShoppingCart } from "lucide-react";
-import Footer from "@/components/Footer";
+import { ArrowLeft, Search, ShoppingCart, Info } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Playfair_Display } from "next/font/google";
 
-// Import a beautiful serif font specifically for this page
 const playfair = Playfair_Display({ subsets: ["latin"] });
 
 // Hardcoded Data
@@ -35,146 +34,164 @@ export default function UndanganDigitalCatalog() {
   });
 
   return (
-    <main className="min-h-screen bg-[#FDFBF7] flex flex-col text-slate-800">
-      {/* Header / Hero Section Khusus Katalog */}
-      <div className="relative pt-6 pb-4 px-6 md:px-12 overflow-hidden bg-gradient-to-b from-[#FFF5F7] to-[#FDFBF7]">
-        {/* Very Soft Aesthetic Background Elements */}
-        <div className="absolute top-0 right-10 w-[200px] h-[200px] bg-rose-200/20 blur-[80px] rounded-full pointer-events-none" />
-        <div className="absolute top-0 left-10 w-[200px] h-[200px] bg-amber-100/30 blur-[80px] rounded-full pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto relative z-10 text-center flex flex-col items-center">
-          <div className="w-full flex justify-start mb-2 md:mb-4">
+    <main className="min-h-screen bg-[#FDFBF7] font-sans selection:bg-rose-200">
+      
+      {/* Sticky Header - iOS Style (Compact) */}
+      <motion.header 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="sticky top-0 z-50 bg-[#FDFBF7]/80 backdrop-blur-xl border-b border-rose-100/50 pt-4 pb-2 px-4 md:px-8"
+      >
+        <div className="max-w-7xl mx-auto flex flex-col gap-2">
+          {/* Top Bar with Back Button */}
+          <div className="flex items-center justify-between">
             <Link 
               href="/#services"
-              className="inline-flex items-center gap-1 text-[10px] md:text-xs uppercase tracking-widest text-rose-400 hover:text-rose-600 transition-colors font-medium"
+              className="flex items-center text-rose-500 hover:text-rose-600 active:opacity-50 transition-opacity font-semibold text-xs md:text-sm tracking-wide"
             >
-              <ArrowLeft size={12} />
-              Kembali ke Beranda
+              <ArrowLeft size={16} className="mr-1" />
+              Kembali
             </Link>
           </div>
-          
-          <h1 className={`${playfair.className} text-2xl md:text-4xl font-semibold text-slate-800 mb-2 tracking-tight leading-tight`}>
-            Koleksi <span className="italic font-light text-rose-500">Undangan</span> Digital
-          </h1>
-          <p className="text-xs md:text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed font-light line-clamp-2 md:line-clamp-none">
-            Sempurnakan momen bahagia Anda dengan sentuhan desain yang lembut, elegan, dan abadi.
-          </p>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-4">
+            <h1 className={`${playfair.className} text-2xl md:text-3xl font-bold text-slate-900 tracking-tight`}>
+              Koleksi <span className="italic font-light text-rose-500">Undangan</span>
+            </h1>
+
+            {/* Search Bar - iOS Search Field Style */}
+            <div className="relative w-full md:w-72 group">
+              <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                <Search className="text-slate-400 group-focus-within:text-rose-500 transition-colors" size={16} />
+              </div>
+              <input 
+                type="text" 
+                placeholder="Cari tema..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-8 pr-3 py-1.5 rounded-[10px] bg-[#EAE8E3] focus:bg-white border-2 border-transparent focus:border-rose-300 outline-none transition-all text-slate-800 placeholder:text-slate-500 text-sm font-medium shadow-sm"
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </motion.header>
 
       {/* Main Content Area */}
-      <div className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-12 py-2 relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 py-6 relative z-10">
         
-        {/* Search & Filter Bar */}
-        <div className="mb-6 space-y-4">
-          
-          {/* Search Bar - Softer Design */}
-          <div className="max-w-lg mx-auto relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="text-slate-300 group-focus-within:text-rose-400 transition-colors" size={16} />
-            </div>
-            <input 
-              type="text" 
-              placeholder="Cari tema undangan..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 md:py-3 rounded-full bg-white/70 backdrop-blur-md border border-rose-100/50 focus:border-rose-300 focus:ring-4 focus:ring-rose-100/50 outline-none transition-all shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-slate-600 placeholder:text-slate-300 font-light text-xs md:text-sm"
-            />
-          </div>
-
-          {/* Tags Filter - 2 Rows Scrollable */}
-          <div className="overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="grid grid-rows-2 grid-flow-col gap-2 min-w-max md:w-full md:flex md:flex-wrap md:justify-center max-w-3xl mx-auto">
-              {TAGS.map(tag => (
-                <button
-                  key={tag}
-                  onClick={() => setActiveTag(tag)}
-                  className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full text-[10px] md:text-xs transition-all duration-500 tracking-wide whitespace-nowrap ${
-                    activeTag === tag 
-                      ? "bg-rose-400 text-white shadow-md shadow-rose-200/50 font-medium" 
-                      : "bg-white/50 text-slate-500 hover:bg-rose-50 hover:text-rose-500 border border-rose-100/30 font-light"
-                  }`}
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
+        {/* Tags Filter - iOS Segmented Control Style */}
+        <div className="mb-6 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="grid grid-rows-2 grid-flow-col gap-2 min-w-max md:w-full md:flex md:flex-wrap">
+            {TAGS.map(tag => (
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                key={tag}
+                onClick={() => setActiveTag(tag)}
+                className={`px-3 py-1.5 md:px-4 md:py-2 rounded-[10px] text-[11px] md:text-xs font-semibold transition-colors tracking-wide whitespace-nowrap shadow-sm ${
+                  activeTag === tag 
+                    ? "bg-rose-500 text-white" 
+                    : "bg-[#EAE8E3]/80 text-slate-700 hover:bg-[#DFDCD5]"
+                }`}
+              >
+                {tag}
+              </motion.button>
+            ))}
           </div>
         </div>
 
-        {/* Grid Catalog */}
-        {filteredInvitations.length > 0 ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-10">
-            {filteredInvitations.map(inv => (
-              <div 
-                key={inv.id}
-                className="bg-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-700 group flex flex-col border border-rose-50/50"
+        {/* Grid Catalog with Layout Animation */}
+        <motion.div layout className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <AnimatePresence mode="popLayout">
+            {filteredInvitations.length > 0 ? (
+              filteredInvitations.map(inv => (
+                <motion.div 
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  key={inv.id}
+                  className="bg-white rounded-[20px] md:rounded-[24px] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.03)] flex flex-col border border-[#EAE8E3]"
+                >
+                  {/* Thumbnail */}
+                  <motion.div 
+                    whileTap={{ scale: 0.97 }}
+                    className="aspect-[4/5] relative overflow-hidden bg-rose-50/30 cursor-pointer group"
+                  >
+                    <img 
+                      src={inv.imgUrl} 
+                      alt={inv.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                    />
+                    {/* Price Badge - iOS Style Badge */}
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-[8px] text-[10px] md:text-xs font-bold text-slate-900 shadow-sm">
+                      {inv.price}
+                    </div>
+                  </motion.div>
+
+                  {/* Content Area */}
+                  <div className="p-3 md:p-4 flex flex-col flex-1">
+                    <h3 className={`${playfair.className} text-[15px] md:text-[18px] font-bold text-slate-900 mb-1 leading-tight tracking-tight line-clamp-1`}>
+                      {inv.title}
+                    </h3>
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1 mb-3 md:mb-4">
+                      {inv.tags.slice(0, 2).map(tag => (
+                        <span key={tag} className="text-[9px] md:text-[10px] font-semibold uppercase tracking-wider text-slate-500 bg-[#EAE8E3]/60 px-1.5 py-0.5 rounded-[6px]">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons - iOS Buttons */}
+                    <div className="mt-auto w-full flex items-center gap-2">
+                      <motion.button 
+                        whileTap={{ scale: 0.94 }}
+                        className="flex-1 py-2.5 md:py-3 rounded-[12px] bg-[#EAE8E3] text-rose-500 font-bold flex items-center justify-center gap-1 text-[11px] md:text-xs tracking-wide active:bg-[#DFDCD5]"
+                      >
+                        <Info size={14} className="md:w-4 md:h-4" />
+                        Info
+                      </motion.button>
+                      <motion.button 
+                        whileTap={{ scale: 0.94 }}
+                        className="flex-1 py-2.5 md:py-3 rounded-[12px] bg-rose-500 text-white font-bold flex items-center justify-center gap-1 text-[11px] md:text-xs tracking-wide shadow-sm shadow-rose-500/20 active:bg-rose-600"
+                      >
+                        <ShoppingCart size={14} className="md:w-4 md:h-4" />
+                        Pesan
+                      </motion.button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="col-span-full flex flex-col items-center justify-center py-20 text-center"
               >
-                {/* Thumbnail - Softer edges */}
-                <div className="aspect-[3/4] relative overflow-hidden bg-rose-50/30 m-1 md:m-2 rounded-[1rem] md:rounded-[1.5rem]">
-                  <img 
-                    src={inv.imgUrl} 
-                    alt={inv.title} 
-                    className="w-full h-full object-cover transform group-hover:scale-110 group-hover:rotate-1 transition-all duration-1000 ease-out"
-                  />
-                  {/* Overlay Price Tag - Elegant */}
-                  <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-white/80 backdrop-blur-md px-2 py-1 md:px-4 md:py-2 rounded-full text-[9px] md:text-xs font-semibold tracking-wider text-slate-700 shadow-sm border border-white/50">
-                    {inv.price}
-                  </div>
+                <div className="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center mb-4">
+                  <Search className="text-slate-400" size={24} />
                 </div>
-
-                {/* Content */}
-                <div className="p-3 md:p-6 flex flex-col flex-1 items-center text-center">
-                  <h3 className={`${playfair.className} text-sm md:text-2xl text-slate-800 mb-2 md:mb-4 group-hover:text-rose-500 transition-colors line-clamp-1 md:line-clamp-none`}>
-                    {inv.title}
-                  </h3>
-                  
-                  {/* Tags */}
-                  <div className="flex flex-wrap justify-center gap-1 md:gap-2 mb-3 md:mb-8">
-                    {inv.tags.slice(0, 2).map(tag => (
-                      <span key={tag} className="text-[8px] md:text-[11px] font-medium tracking-wider uppercase text-slate-400 bg-slate-50 px-1 md:px-2 rounded-sm border border-slate-100">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action Buttons - Soft */}
-                  <div className="mt-auto w-full flex items-center gap-2">
-                    <button className="flex-1 py-2 md:py-3.5 rounded-xl md:rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-600 font-medium transition-all duration-500 flex items-center justify-center gap-1 md:gap-2 text-[10px] md:text-xs tracking-wide border border-slate-100">
-                      <Eye size={14} className="text-slate-400 md:w-4 md:h-4" />
-                      Lihat
-                    </button>
-                    <button className="flex-1 py-2 md:py-3.5 rounded-xl md:rounded-2xl bg-rose-400 hover:bg-rose-500 text-white font-medium transition-all duration-500 flex items-center justify-center gap-1 md:gap-2 text-[10px] md:text-xs tracking-wide shadow-md shadow-rose-200/50">
-                      <ShoppingCart size={14} className="text-white md:w-4 md:h-4" />
-                      Pesan
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-24">
-            <div className="w-24 h-24 bg-rose-50/50 rounded-full flex items-center justify-center mx-auto mb-8 relative">
-              <div className="absolute inset-0 border border-rose-100 rounded-full animate-ping opacity-20" />
-              <Heart className="text-rose-300" size={32} />
-            </div>
-            <h3 className={`${playfair.className} text-3xl text-slate-700 mb-4`}>Tidak Ada Hasil</h3>
-            <p className="text-slate-500 font-light max-w-md mx-auto mb-8">
-              Kami tidak menemukan desain undangan yang sesuai dengan pencarian Anda. Mari coba kata kunci lain.
-            </p>
-            <button 
-              onClick={() => { setSearchQuery(""); setActiveTag("Semua"); }}
-              className="px-8 py-3.5 bg-rose-400 text-white font-medium rounded-full hover:bg-rose-500 transition-all shadow-lg shadow-rose-200/50 text-sm tracking-wide"
-            >
-              Kembali ke Semua Koleksi
-            </button>
-          </div>
-        )}
+                <h3 className="text-xl font-bold text-slate-800 mb-2 tracking-tight">Tidak Ditemukan</h3>
+                <p className="text-slate-500 text-sm max-w-sm">
+                  Tidak ada desain undangan yang cocok dengan pencarian Anda.
+                </p>
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => { setSearchQuery(""); setActiveTag("Semua"); }}
+                  className="mt-4 px-5 py-2 bg-rose-400 text-white text-[11px] md:text-xs font-semibold rounded-full active:bg-rose-500 tracking-wide"
+                >
+                  Hapus Filter
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
       </div>
-
-      <Footer />
     </main>
   );
 }
