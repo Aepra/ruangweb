@@ -13,6 +13,7 @@
     "@aws-sdk/client-s3": "^3.1121.0",
     "@carbon/icons-react": "^11.87.0",
     "@neondatabase/serverless": "^1.1.0",
+    "@opennextjs/cloudflare": "^1.20.4",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
