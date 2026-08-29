@@ -69,10 +69,11 @@ export default async function AdminUndanganBaru() {
               <div className="relative">
                 <select 
                   name="categoryId"
+                  defaultValue=""
                   className="w-full bg-[#111] border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
                   required
                 >
-                  <option value="" disabled selected>Pilih kategori...</option>
+                  <option value="" disabled>Pilih kategori...</option>
                   {categories.map(cat => (
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
                   ))}

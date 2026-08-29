@@ -59,28 +59,29 @@ export default function Catalog() {
               <motion.div 
                 key={service.id} 
                 variants={item}
-                className="group relative bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-colors flex flex-col h-full overflow-hidden"
+                className="group relative bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-3xl p-8 hover:border-slate-700/80 transition-all duration-500 flex flex-col h-full overflow-hidden hover:shadow-[0_0_40px_rgba(0,0,0,0.3)] hover:-translate-y-2"
               >
-                {/* Hover gradient background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                {/* Hover gradient background & glow */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
+                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-20 blur-3xl rounded-full transition-opacity duration-500`} />
                 
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300`}>
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 relative z-10`}>
                   {Icon && <Icon size={28} />}
                 </div>
                 
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-colors line-clamp-2">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors line-clamp-2 relative z-10">
                   {service.title}
                 </h3>
                 
-                <p className="text-slate-400 mb-8 leading-relaxed text-sm line-clamp-3">
+                <p className="text-slate-400 mb-8 leading-relaxed text-sm line-clamp-3 relative z-10">
                   {service.description}
                 </p>
 
                 <Link 
-                  href={`/layanan/${service.slug}`}
-                  className="mt-auto flex items-center gap-2 text-sm font-semibold text-white/50 group-hover:text-white transition-colors"
+                  href={service.slug === 'acara-undangan' ? '/undangan-digital' : `/layanan/${service.slug}`}
+                  className="mt-auto flex items-center gap-2 text-sm font-semibold text-slate-400 group-hover:text-white transition-colors relative z-10"
                 >
-                  Lihat Paket & Detail <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
+                  Lihat Paket & Detail <ArrowRight size={16} className="transform group-hover:translate-x-1.5 transition-transform" />
                 </Link>
               </motion.div>
             );
