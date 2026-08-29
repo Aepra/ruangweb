@@ -12,6 +12,7 @@ const playfair = Playfair_Display({ subsets: ["latin"] });
 const TAGS = ["Semua", "Pernikahan", "Ulang Tahun", "Kelulusan", "Fantasy", "Kartun", "Bunga", "Minimalis", "Klasik", "Modern"];
 
 const INVITATIONS = [
+  { id: 9, slug: "premium-01", title: "Premium 01 - The Elegance", price: "Rp 349.000", tags: ["Pernikahan", "Klasik", "Modern"], imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop" },
   { id: 1, slug: "royal-elegance", title: "Royal Elegance", price: "Rp 149.000", tags: ["Pernikahan", "Klasik", "Bunga"], imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop" },
   { id: 2, slug: "sweet-seventeen", title: "Sweet Seventeen", price: "Rp 99.000", tags: ["Ulang Tahun", "Bunga", "Modern"], imgUrl: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=600&auto=format&fit=crop" },
   { id: 3, slug: "graduation-party", title: "Graduation Party", price: "Rp 79.000", tags: ["Kelulusan", "Minimalis"], imgUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop" },
