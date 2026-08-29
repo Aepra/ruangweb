@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { SidebarNav } from "@/components/ui/dashboard-sidebar";
+import { MobileSidebar } from "@/components/ui/mobile-sidebar";
 
 export default async function AdminLayout({
   children,
@@ -26,8 +27,11 @@ export default async function AdminLayout({
       <div className="flex-1 flex flex-col min-w-0 h-full">
         
         {/* Topbar */}
-        <header className="h-14 border-b border-white/5 bg-[#080808]/80 backdrop-blur-md flex items-center justify-between px-6 shrink-0">
-          <div className="md:hidden font-bold text-white">RW Admin</div>
+        <header className="h-14 border-b border-white/5 bg-[#080808]/80 backdrop-blur-md flex items-center justify-between px-6 shrink-0 relative z-50">
+          <div className="flex items-center gap-4 md:hidden">
+            <MobileSidebar activeWorkspace="RuangWeb Pusat" />
+            <div className="font-bold text-white">RW Admin</div>
+          </div>
           <div className="hidden md:flex flex-1" />
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">

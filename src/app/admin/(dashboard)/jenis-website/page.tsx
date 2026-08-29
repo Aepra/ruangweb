@@ -16,7 +16,7 @@ export default async function AdminJenisWebsite() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Jenis Website</h1>
           <p className="text-sm text-slate-400">Kelola varian website untuk tiap kategori layanan</p>
