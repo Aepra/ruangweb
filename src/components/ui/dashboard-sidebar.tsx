@@ -10,7 +10,8 @@ import {
   Package,
   Users,
   FileText,
-  Globe
+  Globe,
+  Plus
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { logoutAction } from '@/app/actions/auth';
@@ -56,6 +57,14 @@ const adminNavGroups: NavGroupData[] = [
           { id: 'portofolio-baru', title: 'Tambah Baru', icon: FileText, path: '/admin/portofolio/baru' },
         ]
       },
+    ]
+  },
+  {
+    heading: 'Undangan Digital',
+    items: [
+      { id: 'undangan', title: 'Semua Undangan', icon: Package, path: '/admin/undangan' },
+      { id: 'undangan-kategori', title: 'Kategori', icon: LayoutDashboard, path: '/admin/undangan/kategori' },
+      { id: 'undangan-baru', title: 'Tambah Baru', icon: Plus, path: '/admin/undangan/baru' },
     ]
   },
   {

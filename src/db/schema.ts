@@ -67,3 +67,26 @@ export const projectTechnologies = pgTable("project_technologies", {
   projectId: serial("project_id").references(() => projects.id, { onDelete: "cascade" }).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
 });
+
+// --- DIGITAL INVITATIONS ---
+
+export const invitationCategories = pgTable("invitation_categories", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+});
+
+export const invitationStatusEnum = pgEnum("invitation_status", ["draft", "published"]);
+
+export const digitalInvitations = pgTable("digital_invitations", {
+  id: serial("id").primaryKey(),
+  categoryId: serial("category_id").references(() => invitationCategories.id).notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  clientName: varchar("client_name", { length: 255 }).notNull(),
+  eventDate: timestamp("event_date"),
+  coverImage: varchar("cover_image", { length: 500 }),
+  demoUrl: varchar("demo_url", { length: 500 }),
+  status: invitationStatusEnum("status").default("draft").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
