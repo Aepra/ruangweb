@@ -5,7 +5,7 @@ import { loginAction } from '@/app/actions/auth';
 import { useRouter } from 'next/navigation';
 import { Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react';
 
-const initialState = { error: '', success: false };
+const initialState = { error: null as string | null, success: false };
 
 export default function LoginPage() {
   const [state, formAction, isPending] = useActionState(loginAction, initialState);

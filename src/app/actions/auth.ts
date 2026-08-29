@@ -12,14 +12,14 @@ export async function loginAction(prevState: any, formData: FormData) {
   const password = formData.get("password") as string;
 
   if (!email || !password) {
-    return { error: "Email dan password harus diisi." };
+    return { error: "Email dan password harus diisi.", success: false };
   }
 
   try {
     const user = await db.select().from(users).where(eq(users.email, email)).limit(1);
     
     if (user.length === 0) {
-      return { error: "Email atau password salah." };
+      return { error: "Email atau password salah.", success: false };
     }
 
     const userData = user[0];
@@ -27,7 +27,7 @@ export async function loginAction(prevState: any, formData: FormData) {
     const isValid = password === userData.passwordHash;
 
     if (!isValid) {
-      return { error: "Email atau password salah." };
+      return { error: "Email atau password salah.", success: false };
     }
 
     const token = await signToken({
@@ -45,10 +45,10 @@ export async function loginAction(prevState: any, formData: FormData) {
       path: "/",
     });
 
-    return { success: true };
+    return { error: null, success: true };
   } catch (err) {
     console.error("Login error:", err);
-    return { error: "Terjadi kesalahan sistem." };
+    return { error: "Terjadi kesalahan sistem.", success: false };
   }
 }
 
