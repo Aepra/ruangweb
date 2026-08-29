@@ -12,14 +12,14 @@ const playfair = Playfair_Display({ subsets: ["latin"] });
 const TAGS = ["Semua", "Pernikahan", "Ulang Tahun", "Kelulusan", "Fantasy", "Kartun", "Bunga", "Minimalis", "Klasik", "Modern"];
 
 const INVITATIONS = [
-  { id: 1, title: "Royal Elegance", price: "Rp 149.000", tags: ["Pernikahan", "Klasik", "Bunga"], imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop" },
-  { id: 2, title: "Sweet Seventeen", price: "Rp 99.000", tags: ["Ulang Tahun", "Bunga", "Modern"], imgUrl: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=600&auto=format&fit=crop" },
-  { id: 3, title: "Graduation Party", price: "Rp 79.000", tags: ["Kelulusan", "Minimalis"], imgUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop" },
-  { id: 4, title: "Fairy Tale", price: "Rp 129.000", tags: ["Pernikahan", "Fantasy", "Kartun"], imgUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop" },
-  { id: 5, title: "Spring Blossom", price: "Rp 119.000", tags: ["Pernikahan", "Bunga", "Klasik"], imgUrl: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=600&auto=format&fit=crop" },
-  { id: 6, title: "Cyber Neon", price: "Rp 199.000", tags: ["Ulang Tahun", "Modern", "Fantasy"], imgUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop" },
-  { id: 7, title: "Minimalist White", price: "Rp 89.000", tags: ["Pernikahan", "Minimalis", "Modern"], imgUrl: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=600&auto=format&fit=crop" },
-  { id: 8, title: "Anime Vibes", price: "Rp 159.000", tags: ["Ulang Tahun", "Kartun", "Fantasy"], imgUrl: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop" },
+  { id: 1, slug: "royal-elegance", title: "Royal Elegance", price: "Rp 149.000", tags: ["Pernikahan", "Klasik", "Bunga"], imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop" },
+  { id: 2, slug: "sweet-seventeen", title: "Sweet Seventeen", price: "Rp 99.000", tags: ["Ulang Tahun", "Bunga", "Modern"], imgUrl: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=600&auto=format&fit=crop" },
+  { id: 3, slug: "graduation-party", title: "Graduation Party", price: "Rp 79.000", tags: ["Kelulusan", "Minimalis"], imgUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop" },
+  { id: 4, slug: "fairy-tale", title: "Fairy Tale", price: "Rp 129.000", tags: ["Pernikahan", "Fantasy", "Kartun"], imgUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop" },
+  { id: 5, slug: "spring-blossom", title: "Spring Blossom", price: "Rp 119.000", tags: ["Pernikahan", "Bunga", "Klasik"], imgUrl: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=600&auto=format&fit=crop" },
+  { id: 6, slug: "cyber-neon", title: "Cyber Neon", price: "Rp 199.000", tags: ["Ulang Tahun", "Modern", "Fantasy"], imgUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop" },
+  { id: 7, slug: "minimalist-white", title: "Minimalist White", price: "Rp 89.000", tags: ["Pernikahan", "Minimalis", "Modern"], imgUrl: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=600&auto=format&fit=crop" },
+  { id: 8, slug: "anime-vibes", title: "Anime Vibes", price: "Rp 159.000", tags: ["Ulang Tahun", "Kartun", "Fantasy"], imgUrl: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop" },
 ];
 
 export default function UndanganDigitalCatalog() {
@@ -100,17 +100,16 @@ export default function UndanganDigitalCatalog() {
           </div>
         </div>
 
-        {/* Grid Catalog with Layout Animation */}
-        <motion.div layout className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          <AnimatePresence mode="popLayout">
+        {/* Grid Catalog */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <AnimatePresence>
             {filteredInvitations.length > 0 ? (
               filteredInvitations.map(inv => (
                 <motion.div 
-                  layout
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
                   key={inv.id}
                   className="bg-white rounded-[20px] md:rounded-[24px] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.03)] flex flex-col border border-[#EAE8E3]"
                 >
@@ -147,13 +146,15 @@ export default function UndanganDigitalCatalog() {
 
                     {/* Action Buttons - iOS Buttons */}
                     <div className="mt-auto w-full flex items-center gap-2">
-                      <motion.button 
-                        whileTap={{ scale: 0.94 }}
-                        className="flex-1 py-2.5 md:py-3 rounded-[12px] bg-[#EAE8E3] text-rose-500 font-bold flex items-center justify-center gap-1 text-[11px] md:text-xs tracking-wide active:bg-[#DFDCD5]"
-                      >
-                        <Info size={14} className="md:w-4 md:h-4" />
-                        Info
-                      </motion.button>
+                      <Link href={`/undangan-digital/demo/${inv.slug}`} className="flex-1 block">
+                        <motion.button 
+                          whileTap={{ scale: 0.94 }}
+                          className="w-full py-2.5 md:py-3 rounded-[12px] bg-[#EAE8E3] text-rose-500 font-bold flex items-center justify-center gap-1 text-[11px] md:text-xs tracking-wide active:bg-[#DFDCD5]"
+                        >
+                          <Info size={14} className="md:w-4 md:h-4" />
+                          Info
+                        </motion.button>
+                      </Link>
                       <motion.button 
                         whileTap={{ scale: 0.94 }}
                         className="flex-1 py-2.5 md:py-3 rounded-[12px] bg-rose-500 text-white font-bold flex items-center justify-center gap-1 text-[11px] md:text-xs tracking-wide shadow-sm shadow-rose-500/20 active:bg-rose-600"
@@ -189,7 +190,7 @@ export default function UndanganDigitalCatalog() {
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
       </div>
     </main>
