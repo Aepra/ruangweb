@@ -7,7 +7,9 @@ import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { signToken } from "@/lib/auth";
 
-export async function loginAction(prevState: any, formData: FormData) {
+export type LoginState = { error: string | null; success: boolean };
+
+export async function loginAction(prevState: LoginState, formData: FormData): Promise<LoginState> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
