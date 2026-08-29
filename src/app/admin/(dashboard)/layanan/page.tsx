@@ -1,0 +1,59 @@
+import { db } from "@/lib/db";
+import { serviceCategories } from "@/db/schema";
+import { Plus } from "lucide-react";
+
+export default async function AdminLayanan() {
+  const categories = await db.select().from(serviceCategories);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-white mb-1">Kategori Layanan</h1>
+          <p className="text-sm text-slate-400">Kelola semua layanan yang ditawarkan RuangWeb</p>
+        </div>
+        <button className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-colors shadow-lg">
+          <Plus size={16} />
+          Tambah Kategori
+        </button>
+      </div>
+
+      <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm text-slate-300">
+            <thead className="bg-[#111] border-b border-white/10 text-slate-400 text-xs uppercase font-semibold">
+              <tr>
+                <th className="px-6 py-4">ID</th>
+                <th className="px-6 py-4">Kategori Layanan</th>
+                <th className="px-6 py-4">URL Slug</th>
+                <th className="px-6 py-4">Ikon</th>
+                <th className="px-6 py-4">Warna Gradient</th>
+                <th className="px-6 py-4 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {categories.map((cat) => (
+                <tr key={cat.id} className="hover:bg-white/[0.02] transition-colors">
+                  <td className="px-6 py-4 font-mono text-slate-500">{cat.id}</td>
+                  <td className="px-6 py-4 font-bold text-white max-w-[200px] truncate">{cat.title}</td>
+                  <td className="px-6 py-4 font-mono text-xs text-blue-400">{cat.slug}</td>
+                  <td className="px-6 py-4 text-slate-400">{cat.iconName}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-4 h-4 rounded-full bg-gradient-to-br ${cat.color}`} />
+                      <span className="text-xs font-mono">{cat.color}</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <button className="text-blue-400 hover:text-blue-300 font-medium mr-4">Edit</button>
+                    <button className="text-red-400 hover:text-red-300 font-medium">Hapus</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
