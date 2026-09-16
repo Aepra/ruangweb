@@ -51,16 +51,13 @@ export default async function LayananDetail({ params }: PageProps) {
         <div className="max-w-7xl mx-auto relative z-10">
           <Link 
             href="/#services"
-            className="inline-flex items-center gap-2 text-sm text-blue-700 hover:text-blue-800 transition-colors mb-8 bg-blue-50 hover:bg-blue-100 px-5 py-2.5 rounded-full border border-blue-200 font-bold shadow-sm"
+            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-blue-600 transition-colors mb-8 font-medium"
           >
             <ArrowLeft size={16} />
             Kembali ke Daftar Layanan
           </Link>
           
           <div className="flex flex-col md:flex-row gap-6 md:items-center mb-12">
-            <div className={`w-24 h-24 shrink-0 rounded-3xl ${vibrantTheme.split(' ')[0]} ${vibrantTheme.split(' ')[1]} flex items-center justify-center shadow-md border-2 ${vibrantTheme.split(' ')[2]}`}>
-              {Icon && <Icon size={48} />}
-            </div>
             <div>
               <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
                 {service.title}
@@ -141,54 +138,55 @@ export default async function LayananDetail({ params }: PageProps) {
         <div className="bg-white rounded-3xl border-2 border-slate-200 overflow-hidden shadow-xl shadow-slate-200/50">
           
           {/* Table Header */}
-          <div className="grid grid-cols-4 bg-slate-50 border-b-2 border-slate-200 text-slate-800 font-bold p-6">
-            <div className="col-span-1 text-lg flex items-center">Fitur Utama</div>
-            <div className="col-span-1 text-center">
-              <div className="text-xl mb-1 text-blue-700 font-black">Starter</div>
-              <div className="text-sm font-bold text-slate-500">{service.packages[0].price}</div>
+          <div className="grid grid-cols-4 bg-slate-50 border-b-2 border-slate-200 text-slate-800 font-bold p-3 md:p-6">
+            <div className="col-span-1 text-[10px] md:text-lg flex items-center leading-tight">Fitur Utama</div>
+            <div className="col-span-1 text-center px-1">
+              <div className="text-xs md:text-xl mb-0.5 md:mb-1 text-blue-700 font-black">Starter</div>
+              <div className="text-[9px] md:text-sm font-bold text-slate-500">{service.packages[0].price}</div>
             </div>
-            <div className="col-span-1 text-center border-x-2 border-slate-200 bg-emerald-50/50">
-              <div className="text-xl text-emerald-700 mb-1 font-black">Profesional</div>
-              <div className="text-sm font-bold text-slate-500">{service.packages[1].price}</div>
+            <div className="col-span-1 text-center px-1 border-x border-slate-200 bg-emerald-50/50">
+              <div className="text-xs md:text-xl text-emerald-700 mb-0.5 md:mb-1 font-black md:hidden">Pro</div>
+              <div className="hidden md:block text-xl text-emerald-700 mb-1 font-black">Profesional</div>
+              <div className="text-[9px] md:text-sm font-bold text-slate-500">{service.packages[1].price}</div>
             </div>
-            <div className="col-span-1 text-center">
-              <div className="text-xl mb-1 text-amber-700 font-black">Custom</div>
-              <div className="text-sm font-bold text-slate-500">{service.packages[2].price}</div>
+            <div className="col-span-1 text-center px-1">
+              <div className="text-xs md:text-xl mb-0.5 md:mb-1 text-amber-700 font-black">Custom</div>
+              <div className="text-[9px] md:text-sm font-bold text-slate-500">{service.packages[2].price}</div>
             </div>
           </div>
 
           {/* Table Body */}
           <div className="flex flex-col">
             {service.featureMatrix.map((row, idx) => (
-              <div key={idx} className={`grid grid-cols-4 p-5 md:p-6 border-b border-slate-100 hover:bg-slate-50 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
-                <div className="col-span-1 font-bold text-slate-700 flex items-center text-sm md:text-base">
+              <div key={idx} className={`grid grid-cols-4 p-2.5 md:p-6 border-b border-slate-100 hover:bg-slate-50 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
+                <div className="col-span-1 font-bold text-slate-700 flex items-center text-[10px] md:text-base pr-1 leading-tight">
                   {row.feature}
                 </div>
                 
                 {/* Starter */}
-                <div className="col-span-1 flex items-center justify-center text-slate-600">
+                <div className="col-span-1 flex items-center justify-center text-slate-600 px-0.5">
                   {typeof row.starter === "boolean" ? (
-                    row.starter ? <Check className="text-blue-500" size={24} strokeWidth={3} /> : <Minus className="text-slate-300" size={24} />
+                    row.starter ? <Check className="text-blue-500 w-4 h-4 md:w-6 md:h-6" strokeWidth={3} /> : <Minus className="text-slate-300 w-4 h-4 md:w-6 md:h-6" />
                   ) : (
-                    <span className="text-sm font-bold text-blue-600 text-center">{row.starter}</span>
+                    <span className="text-[9px] md:text-sm font-bold text-blue-600 text-center leading-tight break-words">{row.starter}</span>
                   )}
                 </div>
                 
                 {/* Profesional */}
-                <div className="col-span-1 flex items-center justify-center text-slate-600 border-x-2 border-slate-100 bg-emerald-50/20">
+                <div className="col-span-1 flex items-center justify-center text-slate-600 border-x border-slate-100 bg-emerald-50/20 px-0.5">
                   {typeof row.professional === "boolean" ? (
-                    row.professional ? <Check className="text-emerald-500" size={24} strokeWidth={3} /> : <Minus className="text-slate-300" size={24} />
+                    row.professional ? <Check className="text-emerald-500 w-4 h-4 md:w-6 md:h-6" strokeWidth={3} /> : <Minus className="text-slate-300 w-4 h-4 md:w-6 md:h-6" />
                   ) : (
-                    <span className="text-sm font-bold text-emerald-600 text-center">{row.professional}</span>
+                    <span className="text-[9px] md:text-sm font-bold text-emerald-600 text-center leading-tight break-words">{row.professional}</span>
                   )}
                 </div>
                 
                 {/* Custom */}
-                <div className="col-span-1 flex items-center justify-center text-slate-600">
+                <div className="col-span-1 flex items-center justify-center text-slate-600 px-0.5">
                   {typeof row.custom === "boolean" ? (
-                    row.custom ? <Check className="text-amber-500" size={24} strokeWidth={3} /> : <Minus className="text-slate-300" size={24} />
+                    row.custom ? <Check className="text-amber-500 w-4 h-4 md:w-6 md:h-6" strokeWidth={3} /> : <Minus className="text-slate-300 w-4 h-4 md:w-6 md:h-6" />
                   ) : (
-                    <span className="text-sm font-bold text-amber-600 text-center">{row.custom}</span>
+                    <span className="text-[9px] md:text-sm font-bold text-amber-600 text-center leading-tight break-words">{row.custom}</span>
                   )}
                 </div>
               </div>
@@ -196,36 +194,39 @@ export default async function LayananDetail({ params }: PageProps) {
           </div>
 
           {/* CTA Row */}
-          <div className="grid grid-cols-4 p-6 bg-slate-50 border-t-2 border-slate-200">
+          <div className="grid grid-cols-4 p-3 md:p-6 bg-slate-50 border-t-2 border-slate-200">
             <div className="col-span-1"></div>
-            <div className="col-span-1 flex justify-center px-2">
+            <div className="col-span-1 flex justify-center px-1">
               <a 
                 href={`${waLink}Halo%20Admin%20RuangWeb,%20saya%20mau%20pesan%20layanan%20${encodeURIComponent(service.title)}%20paket%20Starter.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center px-4 py-3.5 rounded-xl bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition-colors border border-blue-200 shadow-sm"
+                className="w-full h-full flex items-center justify-center text-center px-1 md:px-4 py-2 md:py-3.5 rounded-lg md:rounded-xl bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition-colors border border-blue-200 shadow-sm text-[10px] md:text-base"
               >
-                Pilih Starter
+                <span className="md:hidden">Pilih</span>
+                <span className="hidden md:inline">Pilih Starter</span>
               </a>
             </div>
-            <div className="col-span-1 flex justify-center px-2">
+            <div className="col-span-1 flex justify-center px-1">
               <a 
                 href={`${waLink}Halo%20Admin%20RuangWeb,%20saya%20mau%20pesan%20layanan%20${encodeURIComponent(service.title)}%20paket%20Profesional.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center px-4 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-1"
+                className="w-full h-full flex items-center justify-center text-center px-1 md:px-4 py-2 md:py-3.5 rounded-lg md:rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-md shadow-emerald-500/30 transition-all hover:-translate-y-1 text-[10px] md:text-base"
               >
-                Pilih Profesional
+                <span className="md:hidden">Pilih</span>
+                <span className="hidden md:inline">Pilih Profesional</span>
               </a>
             </div>
-            <div className="col-span-1 flex justify-center px-2">
+            <div className="col-span-1 flex justify-center px-1">
               <a 
                 href={`${waLink}Halo%20Admin%20RuangWeb,%20saya%20mau%20pesan%20layanan%20${encodeURIComponent(service.title)}%20paket%20Custom.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center px-4 py-3.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-700 font-bold transition-colors border border-amber-200 shadow-sm"
+                className="w-full h-full flex items-center justify-center text-center px-1 md:px-4 py-2 md:py-3.5 rounded-lg md:rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-700 font-bold transition-colors border border-amber-200 shadow-sm text-[10px] md:text-base"
               >
-                Pilih Custom
+                <span className="md:hidden">Pilih</span>
+                <span className="hidden md:inline">Pilih Custom</span>
               </a>
             </div>
           </div>

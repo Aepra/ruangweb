@@ -12,76 +12,78 @@ export default function Home() {
       <Navbar />
       
       {/* 1. HERO SECTION */}
-      <section id="home" className="relative bg-white">
+      <section id="home" className="relative bg-white pt-16 lg:pt-0">
         
         {/* Main Full-Screen Hero Content */}
-        <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col justify-center py-8 lg:py-4 px-6 md:px-12 overflow-hidden">
+        <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col justify-center py-10 lg:py-4 px-6 md:px-12 overflow-hidden">
           {/* Background Decorative Elements */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-200/40 rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/3" />
-          <div className="absolute top-40 left-0 w-96 h-96 bg-blue-200/40 rounded-full blur-[100px] -z-10 -translate-x-1/3" />
+          <div className="absolute top-0 right-0 w-72 h-72 lg:w-96 lg:h-96 bg-blue-100/50 rounded-full blur-[80px] -z-10 translate-x-1/3 -translate-y-1/3" />
+          <div className="absolute bottom-40 left-0 w-72 h-72 lg:w-96 lg:h-96 bg-indigo-50/50 rounded-full blur-[80px] -z-10 -translate-x-1/3" />
           
-          <div className="max-w-7xl mx-auto relative z-10 w-full flex flex-col justify-center gap-6 lg:gap-8 h-full">
+          <div className="max-w-7xl mx-auto relative z-10 w-full flex flex-col justify-center gap-10 lg:gap-8 h-full">
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-10 items-center">
               
               {/* Left Column: Text & Buttons */}
               <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
                 
-                <div className="inline-block px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold mb-6 shadow-sm">
-                  🚀 Jasa Pembuatan Website & Sistem Digital
-                </div>
+                <p className="text-blue-600 font-bold uppercase tracking-widest text-[11px] md:text-sm mb-3 md:mb-4 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100/50">
+                  Jasa Pembuatan Website & Sistem Digital
+                </p>
                 
-                <h1 className="text-[2.75rem] md:text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-[1.05] mb-5">
-                  Bikin Website <br className="hidden lg:block" />
+                <h1 className="text-[2.5rem] leading-[1.1] md:text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter mb-4 lg:mb-5">
+                  Bikin Website <br className="hidden md:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Tanpa Ribet</span>
                 </h1>
                 
-                <p className="text-base md:text-lg text-slate-600 mb-8 max-w-xl leading-relaxed font-medium">
+                <p className="text-[15px] md:text-lg text-slate-600 mb-8 max-w-xl leading-relaxed font-medium px-2 lg:px-0">
                   Solusi digital premium untuk mewujudkan sistem impian bisnis, desa, sekolah, atau instansi Anda. Cepat, siap pakai, dan bergaransi.
                 </p>
                 
                 {/* Buttons */}
-                <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4 w-full sm:w-auto">
                   <a 
                     href="#services"
-                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900 text-white text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-800 hover:scale-105 transition-all shadow-xl shadow-slate-900/20"
+                    className="w-full sm:w-auto px-6 md:px-8 py-3.5 md:py-4 rounded-2xl bg-slate-900 text-white text-[15px] md:text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-800 hover:-translate-y-0.5 transition-all shadow-xl shadow-slate-900/10"
                   >
                     Lihat Pilihan Layanan
-                    <ArrowDown size={16} />
+                    <ArrowDown size={18} className="md:w-4 md:h-4" />
                   </a>
                   <a 
                     href={waLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-800 text-sm font-bold flex items-center justify-center gap-2 hover:border-slate-300 hover:bg-slate-50 hover:scale-105 transition-all shadow-sm"
+                    className="w-full sm:w-auto px-6 md:px-8 py-3.5 md:py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-800 text-[15px] md:text-sm font-bold flex items-center justify-center gap-2 hover:border-slate-300 hover:bg-slate-50 hover:-translate-y-0.5 transition-all shadow-sm"
                   >
-                    <MessageCircle size={16} className="text-emerald-500 fill-current" />
+                    <MessageCircle size={18} className="text-emerald-500 fill-current md:w-4 md:h-4" />
                     Tanya via WA
                   </a>
                 </div>
               </div>
 
               {/* Right Column: Promo Box */}
-              <div className="flex justify-center lg:justify-end w-full relative mt-8 lg:mt-0">
+              <div className="flex justify-center lg:justify-end w-full relative">
                 {/* Decorative glow behind the glass */}
-                <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[26rem] bg-gradient-to-br from-blue-400 to-rose-400 rounded-[3rem] blur-3xl opacity-20 animate-pulse" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[22rem] lg:max-w-[26rem] bg-gradient-to-br from-blue-200 to-indigo-200 rounded-[3rem] blur-[60px] opacity-40 -z-10" />
                 
-                <div className="lg:bg-white/60 lg:backdrop-blur-2xl lg:border lg:border-white/60 lg:rounded-[2rem] py-6 lg:p-8 w-full lg:max-w-[26rem] lg:shadow-2xl lg:shadow-blue-900/10 relative overflow-hidden transform lg:scale-105 lg:-rotate-2 lg:hover:rotate-0 lg:hover:scale-110 transition-all duration-500 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-start text-center sm:text-left gap-2 sm:gap-6 lg:gap-0">
-                  <div className="hidden lg:block absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-rose-100/80 to-transparent rounded-bl-full -z-10" />
+                <div className="bg-white/80 backdrop-blur-xl border border-white lg:border-white/60 shadow-xl shadow-blue-900/5 rounded-[2rem] p-6 lg:p-8 w-full max-w-[24rem] lg:max-w-[26rem] relative overflow-hidden transform lg:scale-105 lg:-rotate-2 lg:hover:rotate-0 lg:hover:scale-110 transition-all duration-500 flex flex-col items-center lg:items-start text-center lg:text-left gap-4 lg:gap-0">
+                  <div className="hidden lg:block absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-50 to-transparent rounded-bl-full -z-10" />
                   
-                  <div className="flex-1 w-full relative z-10">
-                    <p className="text-[10px] lg:text-xs font-black text-rose-500 uppercase tracking-widest mb-2 lg:mb-3 flex items-center justify-center sm:justify-start gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)] animate-pulse" />
+                  <div className="w-full relative z-10 flex flex-col items-center lg:items-start">
+                    <p className="text-[11px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 lg:mb-3">
                       Penawaran Spesial
                     </p>
-                    <h2 className="text-2xl lg:text-3xl font-black text-slate-800 flex flex-row sm:flex-col items-center sm:items-start justify-center gap-2 lg:gap-1">
-                      Mulai <span className="text-blue-600 text-4xl lg:text-5xl drop-shadow-sm">Rp 500<span className="text-2xl lg:text-3xl text-blue-600/70">.000</span></span>
+                    <h2 className="text-xl lg:text-3xl font-black text-slate-800 flex flex-row lg:flex-col items-baseline lg:items-start justify-center gap-1.5 lg:gap-1">
+                      Mulai 
+                      <span className="text-blue-600 text-4xl lg:text-5xl drop-shadow-sm relative top-1">
+                        Rp 500<span className="text-2xl lg:text-3xl text-blue-600/70">.000</span>
+                      </span>
                     </h2>
                   </div>
                   
-                  <div className="flex-1 sm:pt-4 lg:pt-0 lg:mt-4 relative z-10 flex items-center">
-                    <p className="text-slate-500 lg:text-slate-600 text-sm font-medium leading-relaxed max-w-sm">
-                      Siap tayang, domain & hosting siap pakai, tanpa biaya tersembunyi. Langsung online!
+                  <div className="w-full lg:pt-5 relative z-10 flex items-center justify-center lg:justify-start border-t border-slate-100 lg:border-none mt-2 lg:mt-0 pt-4">
+                    <p className="text-slate-500 lg:text-slate-600 text-[13px] lg:text-sm font-medium leading-relaxed max-w-[16rem] lg:max-w-sm">
+                      Siap tayang, domain & hosting siap pakai, tanpa biaya tersembunyi. <strong className="text-slate-700">Langsung online!</strong>
                     </p>
                   </div>
                 </div>
