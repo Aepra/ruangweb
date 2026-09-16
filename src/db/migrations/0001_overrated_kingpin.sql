@@ -1,4 +1,4 @@
-CREATE TYPE "public"."invitation_status" AS ENUM('draft', 'published');--> statement-breakpoint
+-- CREATE TYPE "public"."invitation_status" AS ENUM('draft', 'published');--> statement-breakpoint
 CREATE TABLE "digital_invitations" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"category_id" serial NOT NULL,
