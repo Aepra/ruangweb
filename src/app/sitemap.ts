@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 import { servicesData } from '@/data/services'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Ganti URL ini dengan domain asli Anda saat sudah punya domain (.com / .id)
-  const baseUrl = 'https://ruangweb.vercel.app'; 
+  // Domain utama website Anda
+  const baseUrl = 'https://ruangweb.layanankita.web.id'; 
   
   const servicesUrls = servicesData.map((service) => ({
     url: `${baseUrl}/layanan/${service.slug}`,

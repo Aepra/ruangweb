@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ruangweb.layanankita.web.id"),
   title: "RuangWeb - Jasa Pembuatan Website Profesional",
   description: "Jasa pembuatan website profesional, cepat, dan modern untuk bisnis Anda. Buat website impian Anda sekarang bersama RuangWeb.",
   keywords: [
