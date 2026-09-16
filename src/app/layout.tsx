@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "RuangWeb - Jasa Pembuatan Website Profesional",
   description: "Jasa pembuatan website profesional, cepat, dan modern untuk bisnis Anda. Buat website impian Anda sekarang bersama RuangWeb.",
+  verification: {
+    google: "3ADFfyTYllKTIDJ0Yl9PAnMADqA3D37F0qrxPKQAfAc",
+  },
 };
 
 export default function RootLayout({
