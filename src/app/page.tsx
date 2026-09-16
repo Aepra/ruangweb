@@ -3,6 +3,7 @@ import PamphletCatalog from "@/components/PamphletCatalog";
 import Footer from "@/components/Footer";
 import { ArrowDown, MessageCircle, Check, MonitorSmartphone, Settings, HeadphonesIcon, ExternalLink } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import PublicChat from "@/components/PublicChat";
 
 export default function Home() {
   const waLink = "https://wa.me/6285796508390?text=Halo%20Admin%20RuangWeb,%20saya%20ingin%20konsultasi%20pembuatan%20website.";
@@ -115,7 +116,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. PAMPHLET CATALOG */}
+      {/* 2. PUBLIC CHAT (ANONIM) */}
+      <PublicChat />
+
+      {/* 3. PAMPHLET CATALOG */}
       <PamphletCatalog />
 
       {/* 2.5 PORTFOLIO SECTION */}

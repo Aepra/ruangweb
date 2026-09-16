@@ -97,3 +97,13 @@ export const siteStats = pgTable("site_stats", {
   id: serial("id").primaryKey(),
   totalVisitors: integer("total_visitors").default(0).notNull(),
 });
+
+// --- PUBLIC CHAT / COMMENTS ---
+
+export const publicComments = pgTable("public_comments", {
+  id: serial("id").primaryKey(),
+  message: text("message").notNull(),
+  isAdminReply: boolean("is_admin_reply").default(false).notNull(),
+  replyToId: integer("reply_to_id"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
