@@ -60,14 +60,6 @@ const adminNavGroups: NavGroupData[] = [
     ]
   },
   {
-    heading: 'Undangan Digital',
-    items: [
-      { id: 'undangan', title: 'Semua Undangan', icon: Package, path: '/admin/undangan' },
-      { id: 'undangan-kategori', title: 'Kategori', icon: LayoutDashboard, path: '/admin/undangan/kategori' },
-      { id: 'undangan-baru', title: 'Tambah Baru', icon: Plus, path: '/admin/undangan/baru' },
-    ]
-  },
-  {
     heading: 'Sistem',
     items: [
       { id: 'pengguna', title: 'Pengguna', icon: Users, path: '/admin/pengguna' },

@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, text, timestamp, boolean, uuid, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, text, timestamp, boolean, uuid, pgEnum, integer } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", ["super_admin", "admin", "editor"]);
 export const packageTypeEnum = pgEnum("package_type", ["Starter", "Professional", "Custom"]);
@@ -89,4 +89,11 @@ export const digitalInvitations = pgTable("digital_invitations", {
   demoUrl: varchar("demo_url", { length: 500 }),
   status: invitationStatusEnum("status").default("draft").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// --- SITE STATS (VISITOR COUNTER) ---
+
+export const siteStats = pgTable("site_stats", {
+  id: serial("id").primaryKey(),
+  totalVisitors: integer("total_visitors").default(0).notNull(),
 });

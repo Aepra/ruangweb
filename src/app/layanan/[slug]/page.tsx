@@ -1,8 +1,9 @@
 import { servicesData, getIconComponent } from "@/data/services";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle2, XCircle } from "lucide-react";
+import { ArrowLeft, Check, Minus } from "lucide-react";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 interface PageProps {
   params: Promise<{
@@ -25,118 +26,214 @@ export default async function LayananDetail({ params }: PageProps) {
   }
 
   const Icon = getIconComponent(service.iconName);
+  const waLink = "https://wa.me/6285796508390?text=";
+
+  // Function to map service colors to light theme variants
+  const getVibrantColors = (colorString: string) => {
+    if (colorString.includes('emerald') || colorString.includes('teal')) return 'bg-emerald-100 text-emerald-600 border-emerald-200';
+    if (colorString.includes('blue') || colorString.includes('indigo')) return 'bg-blue-100 text-blue-600 border-blue-200';
+    if (colorString.includes('amber') || colorString.includes('orange')) return 'bg-amber-100 text-amber-600 border-amber-200';
+    if (colorString.includes('pink') || colorString.includes('rose')) return 'bg-rose-100 text-rose-600 border-rose-200';
+    if (colorString.includes('purple')) return 'bg-purple-100 text-purple-600 border-purple-200';
+    return 'bg-blue-100 text-blue-600 border-blue-200';
+  };
+  const vibrantTheme = getVibrantColors(service.color);
 
   return (
-    <main className="min-h-screen bg-slate-950 pb-24">
+    <main className="min-h-screen bg-slate-50 flex flex-col pt-24 selection:bg-blue-200 selection:text-blue-900">
+      <Navbar />
+
       {/* Header Section */}
-      <div className="relative pt-32 pb-16 px-6 md:px-12 border-b border-slate-800/50 overflow-hidden">
-        {/* Background glow */}
-        <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-gradient-to-br ${service.color} blur-[120px] opacity-10 pointer-events-none`} />
+      <div className="relative pt-12 pb-16 px-6 md:px-12 overflow-hidden bg-white border-b border-slate-200/60 shadow-sm">
+        {/* Background Decorative Element */}
+        <div className={`absolute top-0 right-0 w-96 h-96 ${vibrantTheme.split(' ')[0]} rounded-full blur-[100px] opacity-40 pointer-events-none translate-x-1/3 -translate-y-1/3`} />
         
         <div className="max-w-7xl mx-auto relative z-10">
           <Link 
             href="/#services"
-            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-sm text-blue-700 hover:text-blue-800 transition-colors mb-8 bg-blue-50 hover:bg-blue-100 px-5 py-2.5 rounded-full border border-blue-200 font-bold shadow-sm"
           >
             <ArrowLeft size={16} />
-            Kembali ke Kategori Utama
+            Kembali ke Daftar Layanan
           </Link>
           
-          <div className="flex flex-col md:flex-row gap-6 md:items-center">
-            <div className={`w-20 h-20 shrink-0 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white shadow-xl`}>
-              {Icon && <Icon size={40} />}
+          <div className="flex flex-col md:flex-row gap-6 md:items-center mb-12">
+            <div className={`w-24 h-24 shrink-0 rounded-3xl ${vibrantTheme.split(' ')[0]} ${vibrantTheme.split(' ')[1]} flex items-center justify-center shadow-md border-2 ${vibrantTheme.split(' ')[2]}`}>
+              {Icon && <Icon size={48} />}
             </div>
             <div>
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+              <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
                 {service.title}
               </h1>
-              <p className="text-lg text-slate-400 max-w-3xl leading-relaxed">
-                {service.description}
+              <p className="text-lg text-slate-600 max-w-3xl leading-relaxed font-medium">
+                {service.longDescription || service.description}
               </p>
             </div>
+          </div>
+
+          {/* Rincian Paket (Textual) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {service.packages.map((pkg, idx) => {
+              // Highlight colors based on index
+              const cardColors = [
+                "border-blue-200 bg-white hover:border-blue-400 hover:shadow-blue-500/10", // Starter
+                "border-emerald-200 bg-emerald-50/30 hover:border-emerald-400 hover:shadow-emerald-500/10 transform md:-translate-y-2 relative shadow-md", // Pro
+                "border-amber-200 bg-white hover:border-amber-400 hover:shadow-amber-500/10" // Custom
+              ];
+              const priceColors = [
+                "text-blue-600",
+                "text-emerald-600",
+                "text-amber-600"
+              ];
+              const dotColors = [
+                "text-blue-400",
+                "text-emerald-400",
+                "text-amber-400"
+              ];
+
+              return (
+                <div key={idx} className={`border-2 rounded-3xl p-8 flex flex-col h-full shadow-sm transition-all duration-300 ${cardColors[idx]}`}>
+                  {idx === 1 && (
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1 bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
+                      Rekomendasi
+                    </div>
+                  )}
+                  <div className="flex flex-col mb-6 border-b border-slate-100 pb-6">
+                    <h3 className="text-2xl font-extrabold text-slate-800 mb-2">Paket {pkg.name}</h3>
+                    <p className={`text-2xl font-black mb-3 ${priceColors[idx]}`}>{pkg.price}</p>
+                    <p className="text-slate-500 text-sm leading-relaxed font-medium">{pkg.desc}</p>
+                  </div>
+                  
+                  <div className="flex-grow space-y-6">
+                    {pkg.fullDetails?.map((detailGroup, gIdx) => (
+                      <div key={gIdx}>
+                        {detailGroup.title && (
+                          <h4 className="text-slate-800 font-bold text-sm mb-3">
+                            {detailGroup.title}
+                          </h4>
+                        )}
+                        <ul className="space-y-2.5">
+                          {detailGroup.items.map((item, iIdx) => (
+                            <li key={iIdx} className="flex items-start gap-2.5">
+                              <span className={`${dotColors[idx]} mt-0.5 shrink-0`}><Check size={16} strokeWidth={3} /></span>
+                              <span className="text-slate-600 text-sm leading-relaxed font-medium">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mt-16">
-        <h2 className="text-2xl font-bold text-white mb-8">Pilih Jenis Website:</h2>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {service.websiteTypes.map((type, index) => {
-            const isUndangan = type.slug === 'website-undangan-digital' || type.name.includes('Undangan');
-            
-            return (
-            <div 
-              key={index} 
-              className={`border rounded-3xl p-8 flex flex-col transition-all duration-300 relative overflow-hidden group
-                ${isUndangan 
-                  ? 'bg-[#FDFBF7] border-[#E8E1C8] shadow-[0_20px_50px_-12px_rgba(255,255,255,0.05)] text-slate-800 max-w-sm mx-auto aspect-[3/4] w-full' 
-                  : 'bg-slate-900 border-slate-800 hover:border-slate-700 h-full'
-                }
-              `}
-              style={isUndangan ? {
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`
-              } : {}}
-            >
-              {/* Cute aesthetic decorative elements for Undangan */}
-              {isUndangan && (
-                <>
-                  <div className="absolute -top-12 -right-12 w-48 h-48 bg-pink-300/30 blur-3xl rounded-full" />
-                  <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-amber-200/30 blur-3xl rounded-full" />
-                </>
-              )}
+      {/* Feature Comparison Table Section */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full py-24">
+        <div className="text-center mb-12">
+          <p className="text-sm font-bold text-rose-500 uppercase tracking-wider mb-3">Detail & Spesifikasi</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Tabel Perbandingan Fitur</h2>
+          <p className="text-slate-600 text-lg">Bandingkan rincian fitur antar paket untuk menentukan yang paling sesuai dengan kebutuhan Anda.</p>
+        </div>
 
-              <h3 className={`text-2xl font-bold mb-6 relative z-10 ${isUndangan ? 'text-slate-800 font-serif' : 'text-white'}`}>
-                {type.name}
-              </h3>
-              
-              {/* Quick Preview of Packages */}
-              <div className="space-y-4 mb-8 flex-grow relative z-10">
-                {['Starter', 'Professional', 'Custom'].map((pkgName) => {
-                  const pkg = type.packages[pkgName as keyof typeof type.packages];
-                  return (
-                    <div key={pkgName} className="flex items-start gap-3">
-                      {pkg.available ? (
-                        <CheckCircle2 className={`${isUndangan ? 'text-pink-500' : 'text-emerald-400'} shrink-0 mt-0.5`} size={20} />
-                      ) : (
-                        <XCircle className={`${isUndangan ? 'text-slate-300' : 'text-slate-600/50'} shrink-0 mt-0.5`} size={20} />
-                      )}
-                      <div>
-                        <span className={`font-semibold ${pkg.available ? (isUndangan ? 'text-slate-800' : 'text-slate-200') : (isUndangan ? 'text-slate-400' : 'text-slate-500')}`}>
-                          Paket {pkgName}
-                        </span>
-                        {pkg.available && (
-                          <p className={`text-sm mt-1 line-clamp-2 ${isUndangan ? 'text-slate-600' : 'text-slate-400'}`}>{pkg.description}</p>
-                        )}
-                        {!pkg.available && pkg.reasonNotAvailable && (
-                          <p className={`text-sm mt-1 ${isUndangan ? 'text-slate-400' : 'text-slate-600'}`}>{pkg.reasonNotAvailable}</p>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              
-              <Link 
-                href={`/layanan/${service.slug}/${type.slug}`}
-                className={`mt-auto flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl font-bold transition-all duration-300 relative z-10 shadow-lg group-hover:-translate-y-1
-                  ${isUndangan 
-                    ? 'bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-400 hover:to-rose-300 text-white shadow-pink-500/25 hover:shadow-pink-500/40' 
-                    : 'bg-blue-600 hover:bg-blue-500 text-white'
-                  }
-                `}
-              >
-                {isUndangan ? 'Lihat Paket' : 'Lihat Penjelasan Detail Paket'}
-                <ArrowRight size={18} className={isUndangan ? "group-hover:translate-x-1 transition-transform" : ""} />
-              </Link>
+        <div className="bg-white rounded-3xl border-2 border-slate-200 overflow-hidden shadow-xl shadow-slate-200/50">
+          
+          {/* Table Header */}
+          <div className="grid grid-cols-4 bg-slate-50 border-b-2 border-slate-200 text-slate-800 font-bold p-6">
+            <div className="col-span-1 text-lg flex items-center">Fitur Utama</div>
+            <div className="col-span-1 text-center">
+              <div className="text-xl mb-1 text-blue-700 font-black">Starter</div>
+              <div className="text-sm font-bold text-slate-500">{service.packages[0].price}</div>
             </div>
-          )})}
+            <div className="col-span-1 text-center border-x-2 border-slate-200 bg-emerald-50/50">
+              <div className="text-xl text-emerald-700 mb-1 font-black">Profesional</div>
+              <div className="text-sm font-bold text-slate-500">{service.packages[1].price}</div>
+            </div>
+            <div className="col-span-1 text-center">
+              <div className="text-xl mb-1 text-amber-700 font-black">Custom</div>
+              <div className="text-sm font-bold text-slate-500">{service.packages[2].price}</div>
+            </div>
+          </div>
+
+          {/* Table Body */}
+          <div className="flex flex-col">
+            {service.featureMatrix.map((row, idx) => (
+              <div key={idx} className={`grid grid-cols-4 p-5 md:p-6 border-b border-slate-100 hover:bg-slate-50 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
+                <div className="col-span-1 font-bold text-slate-700 flex items-center text-sm md:text-base">
+                  {row.feature}
+                </div>
+                
+                {/* Starter */}
+                <div className="col-span-1 flex items-center justify-center text-slate-600">
+                  {typeof row.starter === "boolean" ? (
+                    row.starter ? <Check className="text-blue-500" size={24} strokeWidth={3} /> : <Minus className="text-slate-300" size={24} />
+                  ) : (
+                    <span className="text-sm font-bold text-blue-600 text-center">{row.starter}</span>
+                  )}
+                </div>
+                
+                {/* Profesional */}
+                <div className="col-span-1 flex items-center justify-center text-slate-600 border-x-2 border-slate-100 bg-emerald-50/20">
+                  {typeof row.professional === "boolean" ? (
+                    row.professional ? <Check className="text-emerald-500" size={24} strokeWidth={3} /> : <Minus className="text-slate-300" size={24} />
+                  ) : (
+                    <span className="text-sm font-bold text-emerald-600 text-center">{row.professional}</span>
+                  )}
+                </div>
+                
+                {/* Custom */}
+                <div className="col-span-1 flex items-center justify-center text-slate-600">
+                  {typeof row.custom === "boolean" ? (
+                    row.custom ? <Check className="text-amber-500" size={24} strokeWidth={3} /> : <Minus className="text-slate-300" size={24} />
+                  ) : (
+                    <span className="text-sm font-bold text-amber-600 text-center">{row.custom}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Row */}
+          <div className="grid grid-cols-4 p-6 bg-slate-50 border-t-2 border-slate-200">
+            <div className="col-span-1"></div>
+            <div className="col-span-1 flex justify-center px-2">
+              <a 
+                href={`${waLink}Halo%20Admin%20RuangWeb,%20saya%20mau%20pesan%20layanan%20${encodeURIComponent(service.title)}%20paket%20Starter.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-center px-4 py-3.5 rounded-xl bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition-colors border border-blue-200 shadow-sm"
+              >
+                Pilih Starter
+              </a>
+            </div>
+            <div className="col-span-1 flex justify-center px-2">
+              <a 
+                href={`${waLink}Halo%20Admin%20RuangWeb,%20saya%20mau%20pesan%20layanan%20${encodeURIComponent(service.title)}%20paket%20Profesional.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-center px-4 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-1"
+              >
+                Pilih Profesional
+              </a>
+            </div>
+            <div className="col-span-1 flex justify-center px-2">
+              <a 
+                href={`${waLink}Halo%20Admin%20RuangWeb,%20saya%20mau%20pesan%20layanan%20${encodeURIComponent(service.title)}%20paket%20Custom.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-center px-4 py-3.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-700 font-bold transition-colors border border-amber-200 shadow-sm"
+              >
+                Pilih Custom
+              </a>
+            </div>
+          </div>
+          
         </div>
       </div>
-      <div className="mt-24">
-        <Footer />
-      </div>
+
+      <Footer />
     </main>
   );
 }

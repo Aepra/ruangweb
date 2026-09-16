@@ -8,6 +8,13 @@
       "when": 1787997043528,
       "tag": "0000_wakeful_spirit",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789530291593,
+      "tag": "0001_overrated_kingpin",
+      "breakpoints": true
     }
   ]
 }

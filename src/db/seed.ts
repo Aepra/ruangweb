@@ -30,40 +30,20 @@ async function main() {
     
     const categoryId = insertedCategory[0].id;
 
-    for (const websiteType of category.websiteTypes) {
-      const insertedWebsiteType = await db.insert(websiteTypes).values({
-        categoryId,
-        name: websiteType.name,
-        slug: websiteType.slug,
-      }).returning({ id: websiteTypes.id });
+    const insertedWebsiteType = await db.insert(websiteTypes).values({
+      categoryId,
+      name: "Umum",
+      slug: "umum",
+    }).returning({ id: websiteTypes.id });
 
-      const websiteTypeId = insertedWebsiteType[0].id;
+    const websiteTypeId = insertedWebsiteType[0].id;
 
-      // Starter
+    for (const pkg of category.packages) {
       await db.insert(websitePackages).values({
         websiteTypeId,
-        packageType: "Starter",
-        isAvailable: websiteType.packages.Starter.available,
-        description: websiteType.packages.Starter.description,
-        reasonNotAvailable: websiteType.packages.Starter.reasonNotAvailable,
-      });
-
-      // Professional
-      await db.insert(websitePackages).values({
-        websiteTypeId,
-        packageType: "Professional",
-        isAvailable: websiteType.packages.Professional.available,
-        description: websiteType.packages.Professional.description,
-        reasonNotAvailable: websiteType.packages.Professional.reasonNotAvailable,
-      });
-
-      // Custom
-      await db.insert(websitePackages).values({
-        websiteTypeId,
-        packageType: "Custom",
-        isAvailable: websiteType.packages.Custom.available,
-        description: websiteType.packages.Custom.description,
-        reasonNotAvailable: websiteType.packages.Custom.reasonNotAvailable,
+        packageType: pkg.name === "Profesional" ? "Professional" : pkg.name,
+        isAvailable: true,
+        description: pkg.desc,
       });
     }
   }
