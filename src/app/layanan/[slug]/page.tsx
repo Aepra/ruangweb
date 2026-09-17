@@ -155,17 +155,50 @@ export default async function LayananDetail({ params }: PageProps) {
           {/* Table Header */}
           <div className="grid grid-cols-4 bg-slate-50 border-b-2 border-slate-200 text-slate-800 font-bold p-3 md:p-6">
             <div className="col-span-1 text-[10px] md:text-lg flex items-center leading-tight">Fitur Utama</div>
-            <div className="col-span-1 text-center px-1">
-              <div className="text-xs md:text-xl mb-0.5 md:mb-1 text-blue-700 font-black">Starter</div>
+            
+            <div className="col-span-1 text-center px-1 flex flex-col items-center justify-center">
+              <div className="text-xs md:text-xl mb-0.5 md:mb-1 text-blue-700 font-black flex items-center gap-1.5 flex-col md:flex-row">
+                Starter
+                {service.packages[0].discount && (
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-black bg-red-500 text-white shadow-sm">
+                    -{service.packages[0].discount}%
+                  </span>
+                )}
+              </div>
+              {service.packages[0].originalPrice && (
+                <div className="text-[8px] md:text-xs text-slate-400 line-through mb-0.5">{service.packages[0].originalPrice}</div>
+              )}
               <div className="text-[9px] md:text-sm font-bold text-slate-500">{service.packages[0].price}</div>
             </div>
-            <div className="col-span-1 text-center px-1 border-x border-slate-200 bg-emerald-50/50">
-              <div className="text-xs md:text-xl text-emerald-700 mb-0.5 md:mb-1 font-black md:hidden">Pro</div>
-              <div className="hidden md:block text-xl text-emerald-700 mb-1 font-black">Profesional</div>
+            
+            <div className="col-span-1 text-center px-1 border-x border-slate-200 bg-emerald-50/50 flex flex-col items-center justify-center">
+              <div className="text-xs md:text-xl text-emerald-700 mb-0.5 md:mb-1 font-black flex items-center gap-1.5 flex-col md:flex-row">
+                <span className="md:hidden">Pro</span>
+                <span className="hidden md:inline">Profesional</span>
+                {service.packages[1].discount && (
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-black bg-red-500 text-white shadow-sm">
+                    -{service.packages[1].discount}%
+                  </span>
+                )}
+              </div>
+              {service.packages[1].originalPrice && (
+                <div className="text-[8px] md:text-xs text-slate-400 line-through mb-0.5">{service.packages[1].originalPrice}</div>
+              )}
               <div className="text-[9px] md:text-sm font-bold text-slate-500">{service.packages[1].price}</div>
             </div>
-            <div className="col-span-1 text-center px-1">
-              <div className="text-xs md:text-xl mb-0.5 md:mb-1 text-amber-700 font-black">Custom</div>
+            
+            <div className="col-span-1 text-center px-1 flex flex-col items-center justify-center">
+              <div className="text-xs md:text-xl mb-0.5 md:mb-1 text-amber-700 font-black flex items-center gap-1.5 flex-col md:flex-row">
+                Custom
+                {service.packages[2].discount && (
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-black bg-red-500 text-white shadow-sm">
+                    -{service.packages[2].discount}%
+                  </span>
+                )}
+              </div>
+              {service.packages[2].originalPrice && (
+                <div className="text-[8px] md:text-xs text-slate-400 line-through mb-0.5">{service.packages[2].originalPrice}</div>
+              )}
               <div className="text-[9px] md:text-sm font-bold text-slate-500">{service.packages[2].price}</div>
             </div>
           </div>
