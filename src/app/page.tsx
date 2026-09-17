@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import PamphletCatalog from "@/components/PamphletCatalog";
 import Footer from "@/components/Footer";
-import { ArrowDown, MessageCircle, Check, MonitorSmartphone, Settings, HeadphonesIcon, ExternalLink } from "lucide-react";
+import { ArrowDown, MessageCircle, Check, MonitorSmartphone, Settings, HeadphonesIcon, ExternalLink, Gift } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import PublicChat from "@/components/PublicChat";
 import { getDbServices } from "@/data/db-services";
@@ -15,31 +15,37 @@ export default async function Home() {
       <Navbar />
       
       {/* 1. HERO SECTION */}
-      <section id="home" className="relative bg-white pt-16 lg:pt-0">
+      <section id="home" className="relative bg-white pt-4 lg:pt-0">
         
         {/* Main Full-Screen Hero Content */}
-        <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col justify-center py-10 lg:py-4 px-6 md:px-12 overflow-hidden">
+        <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col justify-center py-2 lg:py-4 px-6 md:px-12 overflow-hidden">
           {/* Background Decorative Elements */}
           <div className="absolute top-0 right-0 w-72 h-72 lg:w-96 lg:h-96 bg-blue-100/50 rounded-full blur-[80px] -z-10 translate-x-1/3 -translate-y-1/3" />
           <div className="absolute bottom-40 left-0 w-72 h-72 lg:w-96 lg:h-96 bg-indigo-50/50 rounded-full blur-[80px] -z-10 -translate-x-1/3" />
           
-          <div className="max-w-7xl mx-auto relative z-10 w-full flex flex-col justify-center gap-10 lg:gap-8 h-full">
+          <div className="max-w-7xl mx-auto relative z-10 w-full flex flex-col justify-center gap-8 lg:gap-8 h-full">
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-10 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center mt-2 lg:mt-0">
               
               {/* Left Column: Text & Buttons */}
               <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
                 
-                <p className="text-blue-600 font-bold uppercase tracking-widest text-[11px] md:text-sm mb-3 md:mb-4 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100/50">
-                  Jasa Pembuatan Website & Sistem Digital
-                </p>
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-3 md:mb-4">
+                  <p className="text-blue-600 font-bold uppercase tracking-widest text-[11px] md:text-sm bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100/50">
+                    Jasa Pembuatan Website & Sistem Digital
+                  </p>
+                  <p className="text-amber-600 font-bold uppercase tracking-widest text-[11px] md:text-sm bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-100/50 flex items-center gap-1.5">
+                    <Gift size={14} className="mb-0.5" />
+                    Gratis Deploy & Domain
+                  </p>
+                </div>
                 
-                <h1 className="text-[2.5rem] leading-[1.1] md:text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter mb-4 lg:mb-5">
+                <h1 className="text-4xl leading-[1.15] md:text-5xl lg:text-7xl font-black text-slate-900 tracking-tight mb-4 lg:mb-5">
                   Bikin Website <br className="hidden md:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Tanpa Ribet</span>
                 </h1>
                 
-                <p className="text-[15px] md:text-lg text-slate-600 mb-8 max-w-xl leading-relaxed font-medium px-2 lg:px-0">
+                <p className="text-[14px] md:text-lg text-slate-600 mb-6 lg:mb-8 max-w-xl leading-relaxed font-medium px-2 lg:px-0">
                   Solusi digital premium untuk mewujudkan sistem impian bisnis, desa, sekolah, atau instansi Anda. Cepat, siap pakai, dan bergaransi.
                 </p>
                 
@@ -69,14 +75,14 @@ export default async function Home() {
                 {/* Decorative glow behind the glass */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[22rem] lg:max-w-[26rem] bg-gradient-to-br from-blue-200 to-indigo-200 rounded-[3rem] blur-[60px] opacity-40 -z-10" />
                 
-                <div className="bg-white/80 backdrop-blur-xl border border-white lg:border-white/60 shadow-xl shadow-blue-900/5 rounded-[2rem] p-6 lg:p-8 w-full max-w-[24rem] lg:max-w-[26rem] relative overflow-hidden transform lg:scale-105 lg:-rotate-2 lg:hover:rotate-0 lg:hover:scale-110 transition-all duration-500 flex flex-col items-center lg:items-start text-center lg:text-left gap-4 lg:gap-0">
+                <div className="bg-white/80 backdrop-blur-xl border border-white lg:border-white/60 shadow-xl shadow-blue-900/5 rounded-[2rem] p-5 lg:p-8 w-full max-w-[24rem] lg:max-w-[26rem] relative overflow-hidden transform lg:scale-105 lg:-rotate-2 lg:hover:rotate-0 lg:hover:scale-110 transition-all duration-500 flex flex-col items-center lg:items-start text-center lg:text-left gap-4 lg:gap-0 mx-auto lg:mx-0">
                   <div className="hidden lg:block absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-50 to-transparent rounded-bl-full -z-10" />
                   
                   <div className="w-full relative z-10 flex flex-col items-center lg:items-start">
                     <p className="text-[11px] lg:text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 lg:mb-3">
                       Penawaran Spesial
                     </p>
-                    <h2 className="text-xl lg:text-3xl font-black text-slate-800 flex flex-row lg:flex-col items-baseline lg:items-start justify-center gap-1.5 lg:gap-1">
+                    <h2 className="text-xl lg:text-3xl font-black text-slate-800 flex flex-col lg:flex-col items-center lg:items-start justify-center gap-0 lg:gap-1">
                       Mulai 
                       <span className="text-blue-600 text-4xl lg:text-5xl drop-shadow-sm relative top-1">
                         Rp 500<span className="text-2xl lg:text-3xl text-blue-600/70">.000</span>
@@ -85,8 +91,8 @@ export default async function Home() {
                   </div>
                   
                   <div className="w-full lg:pt-5 relative z-10 flex items-center justify-center lg:justify-start border-t border-slate-100 lg:border-none mt-2 lg:mt-0 pt-4">
-                    <p className="text-slate-500 lg:text-slate-600 text-[13px] lg:text-sm font-medium leading-relaxed max-w-[16rem] lg:max-w-sm">
-                      Siap tayang, domain & hosting siap pakai, tanpa biaya tersembunyi. <strong className="text-slate-700">Langsung online!</strong>
+                    <p className="text-slate-500 lg:text-slate-600 text-xs sm:text-[13px] lg:text-sm font-medium leading-relaxed max-w-[16rem] lg:max-w-sm mt-1 lg:mt-0">
+                      Sudah termasuk <strong className="text-slate-700">Gratis deploy & domain</strong> (serta storage 1,5 GB yang muat ribuan tulisan & foto). Sangat pas untuk instansi!
                     </p>
                   </div>
                 </div>
@@ -243,16 +249,28 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* Bento Card 3 (Wide) */}
-            <div className="shrink-0 w-[85%] md:w-auto snap-center col-span-1 md:col-span-3 row-span-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl p-8 md:p-10 relative overflow-hidden group">
-              <HeadphonesIcon size={250} className="absolute -bottom-20 right-10 text-white/10 group-hover:scale-110 transition-transform duration-700" />
+            {/* Bento Card 3 (New: Free Hosting & Domain) */}
+            <div className="shrink-0 w-[85%] md:w-auto snap-center col-span-1 row-span-1 bg-amber-100/50 rounded-3xl p-8 relative overflow-hidden group border border-amber-200">
+              <Gift size={150} className="absolute -top-10 -right-10 text-amber-200 group-hover:-rotate-12 transition-transform duration-700" />
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center mb-6">
+                  <Gift size={24} />
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-3">Terima Beres (Gratis Deploy & Domain)</h3>
+                <p className="text-slate-600 text-sm font-medium">Sudah termasuk layanan deploy, nama domain, beserta storage kapasitas database/file 1,5 GB! Mampu menampung ribuan tulisan profil dan ratusan foto kegiatan. Sangat pas untuk instansi atau sekolah Anda.</p>
+              </div>
+            </div>
+
+            {/* Bento Card 4 (Wide - Support) */}
+            <div className="shrink-0 w-[85%] md:w-auto snap-center col-span-1 md:col-span-2 row-span-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl p-8 md:p-10 relative overflow-hidden group">
+              <HeadphonesIcon size={250} className="absolute -bottom-20 right-0 text-white/10 group-hover:scale-110 transition-transform duration-700" />
               <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
                 <div className="w-20 h-20 shrink-0 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center">
                   <HeadphonesIcon size={40} />
                 </div>
                 <div>
-                  <h3 className="text-2xl md:text-4xl font-bold text-white mb-3">Dukungan WA Responsif</h3>
-                  <p className="text-emerald-50 text-base md:text-lg max-w-2xl font-medium">Ada kendala atau butuh bantuan teknis? Hubungi kami langsung via chat WhatsApp, kami siap membantu sampai tuntas.</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Dukungan WA Responsif</h3>
+                  <p className="text-emerald-50 text-base md:text-lg max-w-xl font-medium">Ada kendala atau butuh bantuan teknis? Hubungi kami langsung via chat WhatsApp, kami siap membantu sampai tuntas.</p>
                 </div>
               </div>
             </div>
