@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Code2, LayoutDashboard, Package, LogOut } from 'lucide-react';
+import { Menu, X, Code2, LayoutDashboard, Package, LogOut, MessageSquare } from 'lucide-react';
 
 export default function MobileHeader({ session }: { session: any }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,6 +66,10 @@ export default function MobileHeader({ session }: { session: any }) {
           <Link href="/admin/services" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all">
             <Package size={18} className="text-slate-500" />
             Layanan & Paket
+          </Link>
+          <Link href="/admin/chat" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all">
+            <MessageSquare size={18} className="text-slate-500" />
+            Pesan & Chat
           </Link>
         </nav>
 

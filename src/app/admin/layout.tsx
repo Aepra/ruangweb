@@ -1,7 +1,7 @@
 import { getSession, logoutUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, Package, LogOut, Code2 } from 'lucide-react';
+import { LayoutDashboard, Package, LogOut, Code2, MessageSquare } from 'lucide-react';
 import MobileHeader from './MobileHeader';
 
 export default async function AdminLayout({
@@ -56,6 +56,10 @@ export default async function AdminLayout({
           <Link href="/admin/services" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all group">
             <Package size={18} className="text-slate-500 group-hover:text-slate-300 transition-colors" />
             Layanan &amp; Paket
+          </Link>
+          <Link href="/admin/chat" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all group">
+            <MessageSquare size={18} className="text-slate-500 group-hover:text-slate-300 transition-colors" />
+            Pesan &amp; Chat
           </Link>
         </nav>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { getComments, postComment, deleteComment } from "@/app/actions/chat";
+import { getComments, postComment } from "@/app/actions/chat";
 import { MessageSquare, Send, ShieldCheck, Clock, Reply, CheckCircle2, Trash2 } from "lucide-react";
 
 type Comment = {
@@ -16,12 +16,11 @@ const CommentNode = ({
   comment, 
   allComments, 
   depth = 0, 
-  replyingTo, 
-  setReplyingTo, 
-  replyMessage, 
-  setReplyMessage, 
-  handleReply, 
-  handleDelete,
+  replyingTo,
+  setReplyingTo,
+  replyMessage,
+  setReplyMessage,
+  handleReply,
   isReplying, 
   formatDate 
 }: any) => {
@@ -57,14 +56,6 @@ const CommentNode = ({
             className="text-[11px] text-slate-400 hover:text-blue-600 flex items-center gap-1 pl-1 transition-colors"
           >
             <Reply className="w-3 h-3" /> Balas
-          </button>
-          
-          <button 
-            onClick={() => handleDelete(comment.id)}
-            className="text-[11px] text-slate-400 hover:text-red-500 flex items-center gap-1 transition-colors"
-            title="Hapus Pesan (Admin Only)"
-          >
-            <Trash2 className="w-3 h-3" /> Hapus
           </button>
         </div>
         
@@ -103,7 +94,6 @@ const CommentNode = ({
               replyMessage={replyMessage}
               setReplyMessage={setReplyMessage}
               handleReply={handleReply}
-              handleDelete={handleDelete}
               isReplying={isReplying}
               formatDate={formatDate}
             />
@@ -186,17 +176,7 @@ export default function PublicChat() {
     setIsReplying(false);
   };
 
-  const handleDelete = async (id: number) => {
-    const code = window.prompt("Masukkan Kode Rahasia Admin untuk menghapus percakapan:");
-    if (!code) return;
 
-    const res = await deleteComment(id, code);
-    if (res.success) {
-      await fetchComments();
-    } else {
-      alert(res.error || "Gagal menghapus pesan");
-    }
-  };
 
   const formatDate = (dateString: Date) => {
     const date = new Date(dateString);
@@ -274,7 +254,6 @@ export default function PublicChat() {
                   replyMessage={replyMessage}
                   setReplyMessage={setReplyMessage}
                   handleReply={handleReply}
-                  handleDelete={handleDelete}
                   isReplying={isReplying}
                   formatDate={formatDate}
                 />

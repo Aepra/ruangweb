@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Package, LogOut, Menu, X, Code2, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Package, LogOut, Menu, X, Code2, ChevronRight, MessageSquare } from 'lucide-react';
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { href: '/admin/services', label: 'Layanan & Paket', icon: Package },
+  { href: '/admin/chat', label: 'Pesan & Chat', icon: MessageSquare },
 ];
 
 export default function AdminSidebar({ userName }: { userName: string }) {
