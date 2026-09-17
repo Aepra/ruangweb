@@ -15,6 +15,13 @@
       "when": 1789530291593,
       "tag": "0001_overrated_kingpin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789613391140,
+      "tag": "0002_amused_microchip",
+      "breakpoints": true
     }
   ]
 }

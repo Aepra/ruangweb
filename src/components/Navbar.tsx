@@ -5,6 +5,7 @@ import { Menu, X, Code2, ChevronDown, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { servicesData, getIconComponent } from "@/data/services";
+import NavUserDropdown from "./NavUserDropdown";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,6 +55,9 @@ export default function Navbar() {
               </span>
             </div>
           </Link>
+          
+          {/* Admin User Dropdown */}
+          <NavUserDropdown />
         </div>
 
         {/* Desktop Nav */}

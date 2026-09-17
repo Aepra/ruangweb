@@ -6,6 +6,7 @@ export const packageTypeEnum = pgEnum("package_type", ["Starter", "Professional"
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: varchar("name", { length: 255 }).notNull(),
+  username: varchar("username", { length: 255 }).unique(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   role: roleEnum("role").default("admin").notNull(),
@@ -107,3 +108,58 @@ export const publicComments = pgTable("public_comments", {
   replyToId: integer("reply_to_id"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+// --- DYNAMIC SERVICES & PACKAGES ---
+import { jsonb } from "drizzle-orm/pg-core";
+
+export const services = pgTable("services", {
+  id: serial("id").primaryKey(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  title: varchar("title", { length: 255 }).notNull(),
+  iconName: varchar("icon_name", { length: 255 }).notNull(),
+  color: varchar("color", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  longDescription: text("long_description"),
+});
+
+export const packages = pgTable("packages", {
+  id: serial("id").primaryKey(),
+  serviceId: serial("service_id").references(() => services.id, { onDelete: "cascade" }).notNull(),
+  name: varchar("name", { length: 255 }).notNull(), // Starter, Profesional, Custom
+  basePrice: integer("base_price").notNull().default(0), // Price in Rupiah
+  discountPercentage: integer("discount_percentage").notNull().default(0),
+  isCustomPrice: boolean("is_custom_price").notNull().default(false), // e.g., 'Sesuai Kebutuhan'
+  description: text("description").notNull(),
+  fullDetails: jsonb("full_details"), // Store the feature groups as JSONB array
+});
+
+export const featureMatrix = pgTable("feature_matrix", {
+  id: serial("id").primaryKey(),
+  serviceId: serial("service_id").references(() => services.id, { onDelete: "cascade" }).notNull(),
+  feature: varchar("feature", { length: 255 }).notNull(),
+  starter: varchar("starter", { length: 255 }), // Can be boolean represented as string 'true', 'false' or custom text like 'Advanced'
+  professional: varchar("professional", { length: 255 }),
+  custom: varchar("custom", { length: 255 }),
+});
+
+import { relations } from 'drizzle-orm';
+
+export const servicesRelations = relations(services, ({ many }) => ({
+  packages: many(packages),
+  featureMatrix: many(featureMatrix),
+}));
+
+export const packagesRelations = relations(packages, ({ one }) => ({
+  service: one(services, {
+    fields: [packages.serviceId],
+    references: [services.id],
+  }),
+}));
+
+export const featureMatrixRelations = relations(featureMatrix, ({ one }) => ({
+  service: one(services, {
+    fields: [featureMatrix.serviceId],
+    references: [services.id],
+  }),
+}));
+

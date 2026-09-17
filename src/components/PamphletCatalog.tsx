@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Tag, Layers, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { servicesData, getIconComponent } from "@/data/services";
+import { getIconComponent } from "@/data/services";
 
-export default function PamphletCatalog() {
+export default function PamphletCatalog({ servicesData }: { servicesData: any[] }) {
   const waLink = "https://wa.me/6285796508390?text=";
 
   return (
@@ -43,7 +43,11 @@ export default function PamphletCatalog() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
           {servicesData.map((service, index) => {
             const Icon = getIconComponent(service.iconName);
-            const starterPrice = service.packages[0]?.price || "Sesuai Kebutuhan";
+            const starterPkg = service.packages[0];
+            const starterPrice = starterPkg?.price || "Sesuai Kebutuhan";
+            const starterOriginalPrice = starterPkg?.originalPrice || null;
+            // Check if any package has a discount
+            const maxDiscount = service.packages.reduce((max: number, p: any) => Math.max(max, p.discount || 0), 0);
             
             // Map dark gradient colors to light theme vibrant bg colors
             const getVibrantColors = (colorString: string) => {
@@ -75,9 +79,21 @@ export default function PamphletCatalog() {
                     <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${vibrantTheme.split(' ')[0]} ${vibrantTheme.split(' ')[1]} flex items-center justify-center shadow-sm transform group-hover:scale-110 transition-transform duration-300`}>
                       <Icon size={24} className="md:w-7 md:h-7" />
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs md:text-sm font-bold shadow-sm">
-                      <Tag size={12} className="md:w-3.5 md:h-3.5" />
-                      Mulai {starterPrice}
+                    <div className="flex flex-col items-end gap-1">
+                      {maxDiscount > 0 && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] md:text-xs font-black bg-red-500 text-white shadow-sm">
+                          HEMAT {maxDiscount}%
+                        </span>
+                      )}
+                      <div className="inline-flex flex-col items-end">
+                        {starterOriginalPrice && (
+                          <span className="text-[10px] text-slate-400 line-through leading-none">{starterOriginalPrice}</span>
+                        )}
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs md:text-sm font-bold shadow-sm">
+                          <Tag size={12} className="md:w-3.5 md:h-3.5" />
+                          Mulai {starterPrice}
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -85,6 +101,17 @@ export default function PamphletCatalog() {
                   <h2 className="text-xl md:text-2xl font-extrabold text-slate-800 mb-2 group-hover:text-blue-700 transition-colors">
                     {service.title}
                   </h2>
+
+                  {/* Discount promo strip */}
+                  {maxDiscount > 0 && (
+                    <div className="flex items-center gap-2 mb-3 px-3 py-2 rounded-xl bg-gradient-to-r from-red-50 to-rose-50 border border-red-100">
+                      <span className="text-red-500 text-base leading-none">✂</span>
+                      <p className="text-red-600 text-xs md:text-sm font-bold">
+                        Diskon hingga <span className="text-red-600">{maxDiscount}%</span> untuk paket ini!
+                      </p>
+                    </div>
+                  )}
+
                   <p className="text-slate-600 text-xs md:text-sm leading-relaxed mb-4 flex-grow font-medium">
                     {service.description}
                   </p>

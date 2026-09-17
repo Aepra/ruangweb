@@ -1,4 +1,5 @@
-import { servicesData, getIconComponent } from "@/data/services";
+import { getIconComponent } from "@/data/services";
+import { getDbServices } from "@/data/db-services";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Check, Minus } from "lucide-react";
@@ -11,7 +12,8 @@ interface PageProps {
   }>;
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const servicesData = await getDbServices();
   return servicesData.map((service) => ({
     slug: service.slug,
   }));
@@ -19,6 +21,7 @@ export function generateStaticParams() {
 
 export default async function LayananDetail({ params }: PageProps) {
   const resolvedParams = await params;
+  const servicesData = await getDbServices();
   const service = servicesData.find((s) => s.slug === resolvedParams.slug);
 
   if (!service) {
@@ -96,13 +99,25 @@ export default async function LayananDetail({ params }: PageProps) {
                     </div>
                   )}
                   <div className="flex flex-col mb-6 border-b border-slate-100 pb-6">
-                    <h3 className="text-2xl font-extrabold text-slate-800 mb-2">Paket {pkg.name}</h3>
-                    <p className={`text-2xl font-black mb-3 ${priceColors[idx]}`}>{pkg.price}</p>
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="text-2xl font-extrabold text-slate-800">Paket {pkg.name}</h3>
+                      {pkg.discount && (
+                        <span className="shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black bg-red-500 text-white shadow-sm animate-pulse">
+                          HEMAT {pkg.discount}%
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex flex-col mb-3">
+                      {pkg.originalPrice && (
+                        <p className="text-sm text-slate-400 line-through mb-1">{pkg.originalPrice}</p>
+                      )}
+                      <p className={`text-2xl font-black ${priceColors[idx]}`}>{pkg.price}</p>
+                    </div>
                     <p className="text-slate-500 text-sm leading-relaxed font-medium">{pkg.desc}</p>
                   </div>
                   
                   <div className="flex-grow space-y-6">
-                    {pkg.fullDetails?.map((detailGroup, gIdx) => (
+                    {((pkg.fullDetails as any[]) || []).map((detailGroup: any, gIdx: number) => (
                       <div key={gIdx}>
                         {detailGroup.title && (
                           <h4 className="text-slate-800 font-bold text-sm mb-3">
@@ -110,7 +125,7 @@ export default async function LayananDetail({ params }: PageProps) {
                           </h4>
                         )}
                         <ul className="space-y-2.5">
-                          {detailGroup.items.map((item, iIdx) => (
+                          {(detailGroup.items || []).map((item: any, iIdx: number) => (
                             <li key={iIdx} className="flex items-start gap-2.5">
                               <span className={`${dotColors[idx]} mt-0.5 shrink-0`}><Check size={16} strokeWidth={3} /></span>
                               <span className="text-slate-600 text-sm leading-relaxed font-medium">{item}</span>

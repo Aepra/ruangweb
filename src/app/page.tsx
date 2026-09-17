@@ -4,9 +4,11 @@ import Footer from "@/components/Footer";
 import { ArrowDown, MessageCircle, Check, MonitorSmartphone, Settings, HeadphonesIcon, ExternalLink } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import PublicChat from "@/components/PublicChat";
+import { getDbServices } from "@/data/db-services";
 
-export default function Home() {
+export default async function Home() {
   const waLink = "https://wa.me/6285796508390?text=Halo%20Admin%20RuangWeb,%20saya%20ingin%20konsultasi%20pembuatan%20website.";
+  const servicesData = await getDbServices();
 
   return (
     <main className="min-h-screen bg-slate-50 flex flex-col pt-16 lg:pt-20 selection:bg-blue-200 selection:text-blue-900 overflow-x-hidden">
@@ -120,7 +122,7 @@ export default function Home() {
       <PublicChat />
 
       {/* 3. PAMPHLET CATALOG */}
-      <PamphletCatalog />
+      <PamphletCatalog servicesData={servicesData} />
 
       {/* 2.5 PORTFOLIO SECTION */}
       <section className="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
